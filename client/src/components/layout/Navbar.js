@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 class Navbar extends Component {
+  
   render() {
     return (
       <div className="navbar-fixed">
         <nav className="z-depth-0">
           <div className="nav-wrapper white">
             <Link
-              to="/"
+              to={this.props.auth.isAuthenticated ? "/dashboard" : "/"}
               style={{
                 fontFamily: "monospace"
               }}
@@ -24,4 +27,12 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+Navbar.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(Navbar);
