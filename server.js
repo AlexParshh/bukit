@@ -3,11 +3,12 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const users = require("./routes/api/users");
+const userList = require("./routes/api/userList");
 
 const app = express();
 
 
-
+app.use(express.json());
 app.use(
     bodyParser.urlencoded({
       extended: false
@@ -31,7 +32,7 @@ app.use(passport.initialize());
 
 // Routes
 app.use("/api/users", users);
-
+app.use("/api/userlist", userList);
 
 const port = 5000; 
 
