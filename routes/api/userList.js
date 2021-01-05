@@ -5,6 +5,7 @@ const keys = require("../../config/keys");
 
 //Load User model
 const User = require("../../models/User");
+const Item = require("../../models/item");
 
 
 
@@ -28,10 +29,34 @@ router.use(function authenticateToken(req, res, next) {
 // @desc insert list item into user list
 // @access Private
 router.post("/insert", (req, res) => {
-    res.send("SUCCESS")
+    const id = req.body.id;
+    const newItem = new Item.Item({
+        itemName: req.body.name,
+        itemDesc: req.body.desc,
+        finishedStatus: req.body.status
+    });
+    
+    User.findOne({_id:id}).then(user => {
+        if (!user) {
+            return res.sendStatus(400);
+        } else {
+            const userList = user.items
+            userList.push(newItem);
 
+            User.findByIdAndUpdate(id, {items: userList}, function (err,result) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.send(result);
+                
+                }
+            });
+        }
+    })
 
 })
+
+
 
 
 module.exports = router;

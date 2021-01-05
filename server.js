@@ -19,7 +19,7 @@ app.use(
 
 // db info
 const db = require("./config/keys").mongoURI;
-
+mongoose.set('useFindAndModify', false);
 
 // mongodb connection
 mongoose.connect(db,

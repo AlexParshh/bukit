@@ -1,22 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
-
-// status is true if item has been completed, false otherwise.
-const ItemSchema = new Schema({
-  itemName: {
-    type: String,
-    required: true
-  },
-  itemDesc: {
-    type: String,
-    required: true
-  },
-  status: {
-    type: Boolean,
-    required: true
-  }
-})
+const Item = require("./item");
 
 
 const UserSchema = new Schema({
@@ -36,7 +20,7 @@ const UserSchema = new Schema({
       type: Date,
       default: Date.now
     },
-    items: [ItemSchema]
+    items: [Item.ItemSchema]
     
   });
   
