@@ -34,6 +34,7 @@ router.post("/insert", (req, res) => {
     const newItem = new Item.Item({
         itemName: req.body.name,
         itemDesc: req.body.desc,
+        itemDifficulty:req.body.difficulty,
         finishedStatus: req.body.status
     });
     
@@ -48,7 +49,7 @@ router.post("/insert", (req, res) => {
                 if (err) {
                     res.send(err);
                 } else {
-                    res.send(result);
+                    res.send(user.items);
                 
                 }
             });
@@ -75,7 +76,7 @@ router.post("/delete", (req, res) => {
                 if (err) {
                     res.send(err);
                 } else {
-                    res.send(result);
+                    res.send(user.items);
                 
                 }
             });
@@ -95,8 +96,12 @@ router.post("/update", (req, res) => {
         _id:itemid,
         itemName: req.body.name,
         itemDesc: req.body.desc,
-        finishedStatus: req.body.status
+        itemDifficulty:req.body.difficulty,
     });
+
+    if (req.body.dateCompleted) {
+        newItem.dateCompleted = req.body.dateCompleted;
+    }
     
     User.findOne({_id:id}).then(user => {
         if (!user) {
@@ -110,7 +115,7 @@ router.post("/update", (req, res) => {
                 if (err) {
                     res.send(err);
                 } else {
-                    res.send(result);
+                    res.send(user.items);
                 
                 }
             });
@@ -118,6 +123,38 @@ router.post("/update", (req, res) => {
     })
 
 })
+
+// @route GET api/userList/getlist
+// @desc returns current user list from database
+// @access Private
+router.get("/getlist", (req, res) => {
+    const id = req.body.id;
+    
+    User.findOne({_id:id}).then(user => {
+        if (!user) {
+            return res.sendStatus(400);
+        } else {
+            const userList = user.items;
+            res.send(userList);
+        }     
+    });
+
+});
+
+// @route GET api/userList/getallitems
+// @desc returns all buckit list items from all users
+// @access Private
+router.get("/getallitems", (req, res) => {
+    
+    User.find({}, {items:1}, function(err,result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result)
+        }
+    })
+
+});
 
 
 

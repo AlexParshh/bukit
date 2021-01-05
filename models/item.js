@@ -12,9 +12,17 @@ const ItemSchema = new Schema({
     type: String,
     required: true
   },
+  difficulty: {
+      type: String,
+      required: true
+  },
   finishedStatus: {
     type: Boolean,
     required: true
+  },
+  dateCompleted: {
+      type: Date,
+      required: false,
   }
 })
 
