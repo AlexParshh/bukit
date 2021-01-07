@@ -2,18 +2,38 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import { getItems } from "../../actions/userListActions";
 
 class Dashboard extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      items: this.props.userList.userList
+    }
+
+    this.props.getItems();
+
+  }
 
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.userList != this.props.userList) {
+      this.setState({userList:nextProps.userList})
+    }
+  }
+
+
   
   render() {
-
-    const { user } = this.props.auth;
     
+    const { user } = this.props.auth;
+
     return (
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
@@ -26,13 +46,8 @@ class Dashboard extends Component {
               </p>
             </h4>
 
-
-            
-
-
-
-
-
+            <h1></h1>
+      
 
 
             <button
@@ -56,14 +71,17 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  getItems: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  userList: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  userList: state.userList
 });
 
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, getItems }
 )(Dashboard);

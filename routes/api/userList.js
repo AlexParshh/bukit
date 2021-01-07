@@ -128,7 +128,7 @@ router.post("/update", (req, res) => {
 // @desc returns current user list from database
 // @access Private
 router.get("/getlist", (req, res) => {
-    const id = req.body.id;
+    const id = req.user.id;
     
     User.findOne({_id:id}).then(user => {
         if (!user) {
