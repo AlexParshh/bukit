@@ -1,5 +1,4 @@
 #container {
-  overflow: hidden;
   width: 100%; 
   position: relative;
   height: 75vh;
@@ -8,5 +7,5 @@
 #middle-element {
   margin: 0 auto;
   text-align: center;
-  width: 50vw;
+  width: 75vw;
 }

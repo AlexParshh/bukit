@@ -9,16 +9,20 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import "./dashboard.css";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+import Card from "react-bootstrap/Card";
+import CardColumns from "react-bootstrap/CardColumns";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      items: this.props.userList.userList,
-    };
-
     this.props.getItems();
+
+    this.state = {
+      items: []
+    }
   }
 
   onLogoutClick = (e) => {
@@ -26,25 +30,68 @@ class Dashboard extends Component {
     this.props.logoutUser();
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.userList != this.props.userList) {
-      this.setState({ userList: nextProps.userList });
+  mapItems = (type) => {
+    if (type === true) {
+      return (this.props.userList.userList.filter(x => x.finishedStatus !== false).map((item, i) => (
+        <Card className="p-3" style={{ width: "15rem" }}>
+          <Card.Body>
+            <Card.Title>{item.itemName}</Card.Title>
+            <Card.Text>
+              {item.itemDesc}
+            </Card.Text>
+            <Button variant="secondary">Delete</Button>
+            
+          </Card.Body>
+        </Card>
+      )))
+    } else {
+      return (this.props.userList.userList.filter(x => x.finishedStatus === false).map((item, i) => (
+        <Card className="p-3" style={{ width: "15rem" }}>
+          <Card.Body>
+            <Card.Title>{item.itemName}</Card.Title>
+            <Card.Text>
+              {item.itemDesc}
+            </Card.Text>
+            <Button variant="success">Finished</Button>
+          </Card.Body>
+        </Card>)))
     }
-  }
+  } 
 
   render() {
     const { user } = this.props.auth;
 
     return (
-        <Container id="container">
-          <Row id="middle-element">
-            <Col>
-              <h4>
-                <b>Hey there, {user.name.split(" ")[0]}</b>
-              </h4>
-            </Col>
-          </Row>
-        </Container>
+      <Container id="container">
+        <Row id="middle-element">
+          <Col>
+            <h2 style={{ paddingTop: "50px", paddingBottom: "50px" }}>
+              Hey there, {user.name.split(" ")[0]}!
+            </h2>
+          </Col>
+        </Row>
+        <Row id="middle-element">
+          <Col>
+            <Tabs>
+              <TabList>
+                <Tab>In Progress</Tab>
+                <Tab>Completed</Tab>
+              </TabList>
+
+              <TabPanel>
+                <CardColumns>
+                {this.props.userList.userList ? this.mapItems(false) : null}
+                  </CardColumns>
+              </TabPanel>
+              <TabPanel>
+              <CardColumns>
+              {this.props.userList.userList ? this.mapItems(true) : null}
+                  </CardColumns>
+              </TabPanel>
+            </Tabs>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
