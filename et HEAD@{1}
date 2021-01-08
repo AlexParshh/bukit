@@ -1,0 +1,18 @@
+[33m213660a[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{0}: reset: moving to ORIG_HEAD
+[33m213660a[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{1}: reset: moving to 213660a
+[33m213660a[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{2}: commit: rebuilt landing & navbar with react-bootstrap
+[33m8c90320[m HEAD@{3}: reset: moving to 8c90320
+[33m8c90320[m HEAD@{4}: reset: moving to 8c90320
+[33m8c90320[m HEAD@{5}: reset: moving to 8c90320
+[33m8c90320[m HEAD@{6}: commit: implemented redux process for fetching user list
+[33medd2711[m HEAD@{7}: commit: added additional backend get items routes
+[33m693c14a[m HEAD@{8}: commit: added update/delete from list db backend routes
+[33m238fadd[m HEAD@{9}: commit: added list insertion route in backend
+[33mb88151b[m HEAD@{10}: commit: added jwt route verification
+[33m2ea5c1a[m HEAD@{11}: commit: fixed home navigation when logged in
+[33m7485fa3[m HEAD@{12}: commit: linked react to redux and added private dashboard route
+[33mf319e77[m HEAD@{13}: commit: added auth redux
+[33m8c61c5f[m HEAD@{14}: commit: added react login components and routing
+[33me0f9ffb[m HEAD@{15}: commit: added register/login jwt functionality through mongodb
+[33me9503b0[m HEAD@{16}: commit: setup mongodb database
+[33mbfb695e[m HEAD@{17}: commit (initial): first commit

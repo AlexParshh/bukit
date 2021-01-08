@@ -10,13 +10,10 @@ import { logoutUser } from "../../actions/authActions";
 import Button from "react-bootstrap/Button";
 
 class Navbarnew extends Component {
-
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutUser();
   };
-
-  
 
   render() {
     return (
@@ -33,9 +30,18 @@ class Navbarnew extends Component {
           />{" "}
           Buckit
         </Navbar.Brand>
-        {this.props.auth.isAuthenticated ? <Button onClick={this.onLogoutClick} size="lg" variant="primary">
-                Logout
-              </Button> : null}
+
+        {this.props.auth.isAuthenticated ? (
+          <Nav className="mr-auto">
+          <Nav.Link href="">My Account</Nav.Link>
+          <Nav.Link href="/explore">Explore</Nav.Link>
+        </Nav>
+        ) : null}
+        {this.props.auth.isAuthenticated ? (
+          <Button onClick={this.onLogoutClick} size="lg" variant="primary">
+            Logout
+          </Button>
+        ) : null}
       </Navbar>
     );
   }
